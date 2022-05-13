@@ -1,0 +1,40 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint . --ext .ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "build-watch": "tsc -w",
+    "serve": "node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/router": "^10.1.1",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.11.2",
+    "koa": "^2.13.4",
+    "koa-body": "^5.0.0",
+    "koa-compose": "^4.1.0",
+    "koa-static": "^5.0.0",
+    "mysql": "^2.18.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
+    "@types/koa": "^2.13.4",
+    "@types/koa-compose": "^3.2.5",
+    "@types/koa-static": "^4.0.2",
+    "@types/koa__router": "^8.0.11",
+    "@types/mysql": "^2.15.21",
+    "@types/uuid": "^8.3.4",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "eslint": "^8.15.0",
+    "typescript": "^4.6.4"
+  }
+}
