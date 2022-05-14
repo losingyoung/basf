@@ -16,7 +16,7 @@ export function authMiddleware() {
     if (!/\/api/.test(pathname)) {
       return next();
     }
-    const cookieKey = 'login_session';
+    const cookieKey = 'signin_session';
     const cookie = ctx.cookies.get(cookieKey);
     const sessionData = decryptCookie(cookie);
     if (
@@ -25,32 +25,34 @@ export function authMiddleware() {
     ) {
       ctx.throw(403, 'forbidden');
     }
-    const { userName, lastLoginTime } = sessionData;
+    const { userName, lastSigninTime } = sessionData;
     // 已登陆则有值 方便后续next的接口中调用
     ctx.userName = userName;
-    ctx.lastLoginTime = lastLoginTime
+    ctx.lastSigninTime = lastSigninTime
+
     // 进行登陆/注册过程
     await next();
+
     // 如果有了 说明已登陆/登陆成功/刚注册
     if (ctx.userName) {
       const newSession = encryptCookie({
         userName: ctx.userName,
-        // visit time每次访问会延长 login time只是登陆的那一次的时间
+        // visit time每次访问会延长 sign time只是登陆的那一次的时间
         lastVisitTime: +new Date(),
-        lastLoginTime: ctx.lastLoginTime,
+        lastSigninTime: ctx.lastSigninTime,
         userAgent: ctx.headers['user-agent'],
         ip: ctx.ip,
       });
-      ctx.cookies.set(cookieKey, newSession, { sameSite: 'none', maxAge });
-      ctx.cookies.set('user_name', ctx.userName, { sameSite: 'none', maxAge });
-      ctx.cookies.set('last_login_time', ctx.lastLoginTime, { sameSite: 'none', maxAge });
+      ctx.cookies.set(cookieKey, newSession, { sameSite: 'strict', maxAge, httpOnly: false });
+      ctx.cookies.set('user_name', ctx.userName, { sameSite: 'strict', maxAge, httpOnly: false });
+      ctx.cookies.set('last_signin_time', ctx.lastSigninTime, { sameSite: 'strict', maxAge, httpOnly: false });
     }
   };
 }
 
 function decryptCookie(cookie: string): Partial<SessionData> {
   try {
-    const dataStr = AES.decrypt(cookie, config.loginSessionKey).toString(
+    const dataStr = AES.decrypt(cookie, config.signinSessionKey).toString(
       enc.Utf8
     );
     return JSON.parse(dataStr);
@@ -73,5 +75,5 @@ function validSession(data: Partial<SessionData>, ctx: Koa.Context) {
   return true;
 }
 function encryptCookie(data: SessionData) {
-  return AES.encrypt(JSON.stringify(data), config.loginSessionKey).toString();
+  return AES.encrypt(JSON.stringify(data), config.signinSessionKey).toString();
 }

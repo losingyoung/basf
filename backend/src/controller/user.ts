@@ -25,11 +25,11 @@ export const signUp = async (ctx: Koa.Context, next: Koa.Next) => {
     ctx.body = {errorMessage: '用户名重复'}
     return next()
   }
-  await UserModel.signup(body)
+  const lastSigninTimestamp = await UserModel.signup(body)
   ctx.body = {data: '注册成功'}
   // 全局状态 中间件会用到
   ctx.userName = userName
-  ctx.lastLoginTime = `${+new Date()}`
+  ctx.lastSigninTime = `${lastSigninTimestamp}`
   return next()
 };
 
@@ -45,15 +45,15 @@ export const signIn = async (ctx: Koa.Context, next: Koa.Next) => {
     return next()
   }
   const userInfo = results[0]
-  const {user_name, last_login_time} = userInfo
+  const {user_name, last_signin_time} = userInfo
   if (userInfo.password_hash !== passwordHash){
     ctx.body = {errorMessage: '密码错误'}
     return next()
   }
   // 可以异步更新 不需要等待
-  UserModel.updateLastLoginTime(new Date(), userName)
+  UserModel.updatelastSigninTime(userName)
   ctx.userName = user_name
-  ctx.lastLoginTime = `${last_login_time.getTime()}`
+  ctx.lastSigninTime = `${last_signin_time}`
   ctx.body = {data: '登陆成功'}
   return next()
 };

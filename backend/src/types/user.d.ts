@@ -6,7 +6,7 @@ interface SignParam {
 interface SessionData {
   userName: string;
   lastVisitTime: number;
-  lastLoginTime: number;
+  lastSigninTime: number;
   ip: string;
   userAgent: string;
 }

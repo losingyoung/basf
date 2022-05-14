@@ -7,7 +7,7 @@ const config = {
     password: 'hlHH4wDOI7A9rloDYryX',
     database: 'basf'
   },
-  loginSessionKey: 'HCtoDdYUo09opLm2mauu6nP33YrpPFCF'
+  signinSessionKey: 'HCtoDdYUo09opLm2mauu6nP33YrpPFCF'
 }
 
 export default config

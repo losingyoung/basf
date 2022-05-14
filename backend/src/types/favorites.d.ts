@@ -1,0 +1,4 @@
+interface FavoritesUpdateParam{
+  userName: string
+  
+}

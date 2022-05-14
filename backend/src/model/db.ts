@@ -13,7 +13,7 @@ const pool  = mysql.createPool({
 
 export async function query<T>(sql: string, values?: Array<any>): Promise<T> {
   return new Promise((resolve, reject) => {
-    pool.query(sql, values, function (error, results, fields) {
+    pool.query(sql, values, function (error, results) {
       if (error) return reject(error);
       resolve(results)
     })

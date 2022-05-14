@@ -1,7 +1,7 @@
 import { initDB } from './model/index';
 import app from './app';
 
-const port = 8081;
+const port = 3000;
 
 initDB()
   .then(() => {
