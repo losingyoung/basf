@@ -1,8 +1,10 @@
 import Koa from 'koa';
-// import { errorLogger } from "../utils/logger";
+import { accessLogger } from '../logger';
 export function unionResMiddleware() {
   return async function (ctx: Koa.Context, next: Koa.Next) {
     await next();
+    const accessInfo = `url: ${ctx.url} ip:${ctx.ip}  ua: ${ctx.headers['user-agent']}`;
+    const shouldLog = ctx.url.match(/\/api\//);
     // 没有body 返回404
     if (!ctx.body && !ctx.status) {
       ctx.status = 404;
@@ -20,8 +22,10 @@ export function unionResMiddleware() {
           ctx.type = 'text';
           ctx.body = 'Not Found';
       }
+      shouldLog && accessLogger.info(`404: ${accessInfo}`);
       return;
     }
+    shouldLog && accessLogger.info(`${ctx.status}: ${accessInfo}`);
     // 按照约定， ctx body 成功为 {data: any} 失败为{errorMessage}
     if (Object.prototype.toString.call(ctx.body) === '[object Object]') {
       if ((ctx.body as { data: any }).data) {

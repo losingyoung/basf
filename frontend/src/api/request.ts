@@ -2,7 +2,7 @@ import axios from 'axios';
 import { message } from 'antd';
 // 支持请求失败后自动重试
 import axiosRetry from 'axios-retry';
-import {history} from 'umi'
+import { history } from 'umi';
 
 const http = axios.create({
   timeout: 30000,
@@ -10,12 +10,15 @@ const http = axios.create({
 });
 
 axiosRetry(http, { retries: 3 });
-let hide: () => void;
+let hide: null | (() => void);
 function showLoading() {
+  if (hide) return;
   hide = message.loading('loading', 0);
 }
 function hideLoading() {
+  if (!hide) return
   hide();
+  hide = null
 }
 
 /**
@@ -23,11 +26,12 @@ function hideLoading() {
  */
 http.interceptors.request.use(
   (config) => {
+    console.log('reqqq');
     showLoading();
     return config;
   },
   (error) => {
-    hideLoading()
+    hideLoading();
     message.error(`请求发送失败：${error}`);
     Promise.reject(error);
   },
@@ -38,7 +42,7 @@ http.interceptors.request.use(
  */
 http.interceptors.response.use(
   (response) => {
-    hideLoading()
+    hideLoading();
     const { code, errorMessage } = response.data;
     if (code !== 0) {
       message.error(errorMessage);
@@ -47,10 +51,11 @@ http.interceptors.response.use(
     return response.data.data;
   },
   (error) => {
-    hideLoading()
-    if (error.response.status === 403){
-      history.push('/signin')
-      return
+    console.log('ressss');
+    hideLoading();
+    if (error.response.status === 403) {
+      history.push('/signin');
+      return;
     }
     message.error(`服务器错误：${error}`);
     return Promise.reject(error);
