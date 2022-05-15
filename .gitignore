@@ -102,3 +102,11 @@ dist
 
 # TernJS port file
 .tern-port
+
+.vscode
+
+backend/static
+
+deploy.zip
+
+backend/src/config/.prod.ts
