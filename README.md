@@ -17,7 +17,7 @@ Technical challenge including a signup/in part and a table displaying countries/
 
 # Project structure
 
-![project structure](https://github.com/losingyoung/basf/blob/master/project_structure.png?raw=true)
+![project structure](https://github.com/losingyoung/basf/blob/main/project_structure.png?raw=true)
 
 # Run locally
 
