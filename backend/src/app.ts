@@ -16,7 +16,7 @@ const app = new Koa();
 // app.context.logEnd = logEnd
 const middlewares = compose([unionResMiddleware(), errorMiddleware(), authMiddleware()])
 app.use(middlewares)
-app.use(serve(path.resolve(__dirname, 'static')));
+app.use(serve(path.resolve(__dirname, '../static')));
 app.use(koaBody());
 
 router.prefix('/api')

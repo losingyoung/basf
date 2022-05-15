@@ -140,6 +140,7 @@ export default function IndexPage() {
   }
   const setPopulationChart = (filteredShowRows: CountriesTableData[]) => {
     setChartOptions({
+      color: '#1890ff',
       title: {
         text: 'Population',
       },
@@ -226,7 +227,7 @@ export default function IndexPage() {
           </div>
         </div>
         <Table
-        size='middle'
+        size='small'
           rowSelection={rowSelection}
           className={styles.table}
           rowKey="area"

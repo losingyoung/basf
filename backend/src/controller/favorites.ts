@@ -19,7 +19,7 @@ export const update = async (ctx: Koa.Context, next: Koa.Next) => {
     await FavoritesModel.updateUserFavorites(ctx.userName, favorites)
     ctx.body = {data: 'success'}
   } catch (error) {
-    ctx.body = {errorMessage: '收藏失败'}
+    ctx.body = {errorMessage: 'failt to add favorite'}
   }
 
   return next()

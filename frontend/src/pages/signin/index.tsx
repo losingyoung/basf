@@ -73,7 +73,7 @@ function SignInput(props: SignInputProps) {
           <span>password:</span>
         </Col>
         <Col span={16}>
-          <Input value={password} onChange={passwordOnchange}></Input>
+          <Input type='password' value={password} onChange={passwordOnchange}></Input>
         </Col>
       </Row>
       <Row justify="center" className={styles.inputRow}>

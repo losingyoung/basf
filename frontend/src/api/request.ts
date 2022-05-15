@@ -4,7 +4,7 @@ import { message } from 'antd';
 import axiosRetry from 'axios-retry';
 
 const http = axios.create({
-  timeout: 20000,
+  timeout: 30000,
   baseURL: '/api',
 });
 
