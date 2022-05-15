@@ -1,6 +1,4 @@
 
-[toc]
-
 # Introduction
 Technical challenge including a signup/in part and a table displaying countries/districts inforamtion.
 
@@ -19,95 +17,32 @@ Technical challenge including a signup/in part and a table displaying countries/
 
 # Project structure
 
-
-|-- basf-challenge
-    |-- .gitignore
-    |-- README.md
-    |-- package.json
-    |-- pnpm-lock.yaml
+![project structure](https://github.com/losingyoung/basf/blob/feat/update-readme/project_structure.png?raw=true)
+|-- basf
     |-- backend                    // backend directory
-    |   |-- .eslintrc.js
-    |   |-- ecosystem.config.js
-    |   |-- package.json
-    |   |-- pnpm-lock.yaml
-    |   |-- tsconfig.json
-    |   |-- src                   // source code
+    |   |-- src                    // source code
     |       |-- app.ts           
-    |       |-- index.ts          // boot file
-    |       |-- config            // config for db, encryption keys
-    |       |   |-- .prod.ts
-    |       |   |-- index.ts
-    |       |   |-- local.ts
-    |       |   |-- prod.ts
-    |       |-- controller        // main business logic
-    |       |   |-- favorites.ts
-    |       |   |-- user.ts
+    |       |-- index.ts           // boot file
+    |       |-- config             // config for db, encryption keys
+    |       |-- controller         // main business logic
     |       |-- logger
-    |       |   |-- index.ts
     |       |-- middlewares       
-    |       |   |-- auth.ts
-    |       |   |-- error.ts
-    |       |   |-- unionRes.ts
     |       |-- model              // data model. connect with db
-    |       |   |-- db.ts
-    |       |   |-- favorites.ts
-    |       |   |-- index.ts
-    |       |   |-- user.ts
-    |       |-- router              // definition of all api routes
-    |       |   |-- countries.ts
-    |       |   |-- favorites.ts
-    |       |   |-- index.ts
-    |       |   |-- user.ts
-    |       |-- types                 // typescript types
-    |           |-- favorites.d.ts
-    |           |-- global.d.ts
-    |           |-- user.d.ts
+    |       |-- router             // definition of all api routes
+    |       |-- types              // typescript types
     |-- frontend
-        |-- .editorconfig
-        |-- .eslintrc.js
-        |-- .gitignore
-        |-- .prettierignore
-        |-- .prettierrc
-        |-- README.md
-        |-- package.json
-        |-- pnpm-lock.yaml
-        |-- tsconfig.json
-        |-- typings.d.ts
-        |-- config
-        |   |-- config.ts
+        |-- config                 // project setup config
         |-- mock
-        |   |-- .gitkeep
-        |-- src                         // source code
+        |-- src                    // source code directory
             |-- global.css
-            |-- routes.ts
-            |-- api                      // http requests
-            |   |-- index.ts
-            |   |-- request.ts
-            |-- components               // common components
-            |   |-- bar-chart
-            |   |   |-- index.tsx
-            |   |-- header
-            |       |-- index.less
-            |       |-- index.tsx
-            |-- hooks                      // react hooks
-            |   |-- useAuth.ts
-            |   |-- useInput.ts
-            |-- layouts                   // main page layout
-            |   |-- index.less
-            |   |-- index.tsx
-            |-- pages                      // all pages
-            |   |-- home
-            |   |   |-- index.less
-            |   |   |-- index.tsx
-            |   |   |-- tableColumn.tsx
-            |   |-- signin
-            |       |-- index.less
-            |       |-- index.tsx
-            |-- types                      //typescript types
-            |   |-- countries.d.ts
-            |   |-- user.d.ts
-            |-- wrappers                   // high order components
-                |-- auth.tsx
+            |-- routes.ts             
+            |-- api                 // http requests
+            |-- components          // common components
+            |-- hooks               // react hooks
+            |-- layouts             // main page layout
+            |-- pages               // all pages
+            |-- types               // typescript types
+            |-- wrappers            // high order components
 
 
 
@@ -174,24 +109,20 @@ add file backend/src/config/.prod.ts which has the same config keys but differen
 
 2. build frontend
 
-cd frontend
-
 ```
+cd frontend
 npm run deploy
 ```
 3. build backend
 
-cd backend
-
 ```
+cd backend
 npm run deploy
 ```
 
-if you see 'cp: src/config/.prod.ts: No such file or directory', then you need to finish step 1
+>if you see 'cp: src/config/.prod.ts: No such file or directory', then you need to finish step 1
 
-4. you should now see a deploy.zip
-
-distribute it by any means to a server and unzip
+4. you should now see a deploy.zip, distribute it by all means to a server and unzip
 
 5. install dependencies
 ```
