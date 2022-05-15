@@ -31,7 +31,7 @@ http.interceptors.request.use(
   },
   (error) => {
     hideLoading();
-    message.error(`请求发送失败：${error}`);
+    message.error(`Request sending error：${error}`);
     Promise.reject(error);
   },
 );
@@ -55,7 +55,7 @@ http.interceptors.response.use(
       history.push('/signin');
       return;
     }
-    message.error(`服务器错误：${error}`);
+    message.error(`Server Error：${error}`);
     return Promise.reject(error);
   },
 );

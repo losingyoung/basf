@@ -7,7 +7,7 @@ export function errorMiddleware() {
       await next();
     } catch (err) {
       const errorStatus = err.status;
-      if (!errorStatus) ctx.body = { errorMessage: '服务器运行错误，请重试' };
+      if (!errorStatus) ctx.body = { errorMessage: 'Server Error. Please try again' };
       ctx.status = errorStatus || 500;
       const logMsg = `${err.stack || err} ${ctx.url} ${JSON.stringify(
         ctx.request.body
