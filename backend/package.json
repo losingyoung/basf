@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "build:dev": "tsc -w",
-    "build:prod": "tsc",
+    "build:prod": "cp src/config/.prod.ts src/config/prod.ts && tsc && cp src/config/local.ts src/config/prod.ts",
     "serve:dev": "pm2 start ecosystem.config.js --only basf-test --watch --no-daemon",
     "serve:prod": "cross-env NODE_ENV=production pm2 start ecosystem.config.js --only basf",
     "stop:dev": "pm2 stop basf-test",
