@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/losingyoung/basf/issues"
   },
-  "homepage": "https://github.com/losingyoung/basf#readme"
+  "homepage": "https://github.com/losingyoung/basf#readme",
+  "devDependencies": {
+    "mddir": "^1.1.1"
+  }
 }

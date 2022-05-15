@@ -1,0 +1,15 @@
+lockfileVersion: 5.4
+
+specifiers:
+  mddir: ^1.1.1
+
+devDependencies:
+  mddir: 1.1.1
+
+packages:
+
+  /mddir/1.1.1:
+    resolution: {integrity: sha512-VkBEnXdqoCTC5TLzuA8ITGgb3278sl2HQ9xWCEBK4viZXiyl9IzFRXQ+41x16Z9ODzVabSeRsPWGaD+KbigG6Q==}
+    engines: {node: '>=0.10.0'}
+    hasBin: true
+    dev: true
