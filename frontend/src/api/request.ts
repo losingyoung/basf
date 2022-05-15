@@ -26,7 +26,6 @@ function hideLoading() {
  */
 http.interceptors.request.use(
   (config) => {
-    console.log('reqqq');
     showLoading();
     return config;
   },
@@ -51,7 +50,6 @@ http.interceptors.response.use(
     return response.data.data;
   },
   (error) => {
-    console.log('ressss');
     hideLoading();
     if (error.response.status === 403) {
       history.push('/signin');
