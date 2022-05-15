@@ -17,35 +17,7 @@ Technical challenge including a signup/in part and a table displaying countries/
 
 # Project structure
 
-![project structure](https://github.com/losingyoung/basf/blob/feat/update-readme/project_structure.png?raw=true)
-|-- basf
-    |-- backend                    // backend directory
-    |   |-- src                    // source code
-    |       |-- app.ts           
-    |       |-- index.ts           // boot file
-    |       |-- config             // config for db, encryption keys
-    |       |-- controller         // main business logic
-    |       |-- logger
-    |       |-- middlewares       
-    |       |-- model              // data model. connect with db
-    |       |-- router             // definition of all api routes
-    |       |-- types              // typescript types
-    |-- frontend
-        |-- config                 // project setup config
-        |-- mock
-        |-- src                    // source code directory
-            |-- global.css
-            |-- routes.ts             
-            |-- api                 // http requests
-            |-- components          // common components
-            |-- hooks               // react hooks
-            |-- layouts             // main page layout
-            |-- pages               // all pages
-            |-- types               // typescript types
-            |-- wrappers            // high order components
-
-
-
+![project structure](https://github.com/losingyoung/basf/blob/master/project_structure.png?raw=true)
 
 # Run locally
 
