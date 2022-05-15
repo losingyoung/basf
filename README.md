@@ -26,7 +26,7 @@ Technical challenge including a signup/in part and a table displaying countries/
 - MySQL 5.7
 - pnpm (install by run: npm install pnpm -g)
 
-## backend
+## Backend
 
 1. cd backend
 2. install dependencies
@@ -58,7 +58,7 @@ open http://localhost:3000/api/ping in the browser
 
 If you see 'Forbidden', then you are good
 
-## frontend
+## Frontend
 
 1. cd frontend
 
