@@ -1,15 +1,14 @@
 import * as echarts from 'echarts';
 import { useEffect, useRef } from 'react';
 interface BarChartProps {
-  data: [];
   height: number
-  width: number
+  // width: number
+  options: echarts.EChartsCoreOption
 }
 export default function BarChart(props: BarChartProps) {
   const chartEl = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<echarts.ECharts>();
-  const {height, width} = props
-  console.log(chartEl.current);
+  const {height, options} = props
   useEffect(() => {
     window.onresize = function(){
       chartInstance.current?.resize()
@@ -18,23 +17,8 @@ export default function BarChart(props: BarChartProps) {
   }, []);
 
   // 绘制图表
-  chartInstance.current?.setOption({
-    title: {
-      text: 'ECharts 入门示例',
-    },
-    tooltip: {},
-    xAxis: {
-      data: ['衬衫', '羊毛衫', '雪纺衫', '裤子', '高跟鞋', '袜子'],
-    },
-    yAxis: {},
-    series: [
-      {
-        name: '销量',
-        type: 'bar',
-        data: [5, 20, 36, 10, 10, 20],
-      },
-    ],
-  });
+  chartInstance.current?.setOption(options);
+  chartInstance.current?.resize()
   return (
     <div>
       <div style={{height: height + 'px'}} ref={chartEl}></div>

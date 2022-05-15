@@ -8,11 +8,12 @@ interface CountriesData {
   capital: string[];
   name: CountriesName;
   flags: string[];
-  area: number
+  area: number;
+  population: number;
 }
 // 表格渲染用的数据
 interface CountriesTableData extends CountriesData {
   searchWords?: string;
   selected?: boolean;
-  favorite?: boolean
+  favorite?: boolean;
 }

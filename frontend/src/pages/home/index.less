@@ -1,8 +1,37 @@
-.title {
-  background: rgb(121, 242, 157);
+@tableOperationHeight: 100px;
+@blue: #1890ff;
+.bodyRow{
+  padding: 30px;
+  padding-right: 0;
+  .contentCol{
+    padding-right: 30px;
+    transition: max-width 0.5s, flex 0.5s;
+    box-sizing: border-box;
+  }
 }
+.tableOperations {
+  height:@tableOperationHeight;
+  .searchRow{
+    margin-bottom: 15px;
+  }
+}
+
 .table{
   .flagImg{
-    width:150px;
+    width:80px;
   }
+}
+.highlightText{
+  background-color: @blue;
+  color: #fff;
+}
+
+
+.chartPlaceholder{
+  height: @tableOperationHeight + 40px;
+}
+.chartCloseWrapper{
+  position: relative;
+  text-align: center;
+  margin-top:25px;
 }

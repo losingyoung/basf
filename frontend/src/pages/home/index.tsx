@@ -1,12 +1,14 @@
 import styles from './index.less';
 import { getCountries, updateFavorites } from '@/api';
 import { useEffect, useState, useRef, useCallback } from 'react';
-import { Table, Input, Button, Checkbox } from 'antd';
+import { Table, Input, Checkbox, message, Button, Row, Col, Space } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import useInput from '@/hooks/useInput';
 import { debounce } from 'lodash';
 import StatelessColumns from './tableColumn';
-import BarChart from '@/components/bar-chart'
+import BarChart from '@/components/bar-chart';
+import * as echarts from 'echarts';
+import {CloseCircleOutlined, HeartOutlined, HeartFilled } from '@ant-design/icons';
 // 把收藏列表数据塞到表格数据中
 function setDataFavorites(
   tableData: Array<CountriesTableData>,
@@ -29,17 +31,12 @@ export default function IndexPage() {
       dataIndex: 'favorite',
       key: 'favorite',
       render: (value: boolean | undefined, record) => {
-        console.log(value, record);
+        const Icon = value ? HeartFilled : HeartOutlined
         return (
           <div>
-            {value && '???'}
-            <Button
-              onClick={() => {
+            <Icon style={{color: '#ff0c0c', fontSize: '24px'}} onClick={() => {
                 onClickFavorite(record.area, !value);
-              }}
-            >
-              收藏？
-            </Button>
+              }}></Icon>
           </div>
         );
       },
@@ -126,44 +123,125 @@ export default function IndexPage() {
       setTableData(setDataFavorites(tableData, newFavorites));
     });
   };
-  const showChart = () => {
-    // console.log(tableData, selectedRowKeys)
-    const filteredShowRows = tableData.filter((data) => {
+
+  // 展示图表
+  const [displayChart, setDisplayChart] = useState(false);
+  // 图表配置
+  const [chartOptions, setChartOptions] = useState<echarts.EChartsCoreOption>(
+    {},
+  );
+  const getFilteredRows = () => {
+    return tableData.filter((data) => {
       if (selectedRowKeys.includes(data.area)) {
         return true;
       }
       return false;
     });
-    console.log(filteredShowRows);
+  }
+  const setPopulationChart = (filteredShowRows: CountriesTableData[]) => {
+    setChartOptions({
+      title: {
+        text: 'Population',
+      },
+      // 图表内边距
+      grid: {
+        x: 100, //默认是80px
+        y: 50, //默认是60px
+        x2: 20, //默认80px
+        y2: 50, //默认60px
+      },
+      tooltip: {},
+      xAxis: {
+        // 解决有的文字过长显示不全的问题
+        axisLabel:{
+          interval: 0,
+          formatter: (value: string, index: number) => {
+            if (index % 2 === 0){
+              return value
+            }
+            return '\n\n' + value
+          }
+        },
+        data: filteredShowRows.map((data) => data.name.common),
+      },
+      yAxis: {},
+      series: [
+        {
+          name: 'population',
+          type: 'bar',
+          data: filteredShowRows.map((data) => data.population),
+        },
+      ],
+    });
   };
-
+  // 点击展示按钮
+  const onClickShowChart = () => {
+    const filteredShowRows = getFilteredRows()
+    if (filteredShowRows.length === 0) {
+      return message.warn('select at least one row');
+    }
+    if (displayChart) {
+      return setPopulationChart(filteredShowRows);
+    }
+    setDisplayChart(true);
+    // transition有问题时兜底
+    setTimeout(() => setPopulationChart(filteredShowRows), 1000);
+  };
+  const closeChart = () => {
+    setDisplayChart(false);
+  };
+  const onColTransitionEnd: React.TransitionEventHandler<HTMLDivElement> = (
+    e,
+  ) => {
+    const { propertyName } = e;
+    if (propertyName !== 'max-width' && propertyName !== 'flex-basis' || !displayChart) return;
+    onClickShowChart();
+  };
   return (
-    <div>
-      <div>
-        search: <Input value={searchWords} onChange={setSearchWords}></Input>
-      </div>
-      <div>
-        <Button onClick={onCancelSelections}>cancel selections</Button>
-      </div>
-      <div>
-        <Button onClick={showChart}>show population</Button>
-      </div>
-      <div>
-        <Checkbox
-          checked={showFavorites}
-          onChange={(e) => setShowFavorites(e.target.checked)}
-        >
-          favorites
-        </Checkbox>
-      </div>
-      <Table
-        rowSelection={rowSelection}
-        className={styles.table}
-        rowKey="area"
-        dataSource={tableData}
-        columns={columns}
-      />
-      <BarChart  height={300} data={[]}></BarChart>
-    </div>
+    <Row className={styles.bodyRow}>
+      <Col
+        className={styles.contentCol}
+        span={displayChart ? 12 : 24}
+        onTransitionEnd={onColTransitionEnd}
+      >
+        <div className={styles.tableOperations}>
+          <Space className={styles.searchRow}>
+            <Space>
+              <Input
+                placeholder="Search"
+                value={searchWords}
+                onChange={setSearchWords}
+              ></Input>
+            </Space>
+            <Checkbox
+              checked={showFavorites}
+              onChange={(e) => setShowFavorites(e.target.checked)}
+            >
+              favorites
+            </Checkbox>
+            <Button onClick={onClickShowChart} type='primary'>show population</Button>
+          </Space>
+          <div>
+            <Button className={styles.cancelButton} onClick={onCancelSelections}>cancel selections</Button>
+          </div>
+        </div>
+        <Table
+        size='middle'
+          rowSelection={rowSelection}
+          className={styles.table}
+          rowKey="area"
+          dataSource={tableData}
+          columns={columns}
+        />
+      </Col>
+      <Col span={displayChart ? 12 : 0} className={styles.contentCol}>
+        <div className={styles.chartPlaceholder}></div>
+        <BarChart height={400} options={chartOptions}></BarChart>
+        <div className={styles.chartCloseWrapper}>
+        <CloseCircleOutlined style={{fontSize: '20px'}}className={styles.chartCloseBtn} onClick={closeChart} />
+        </div>
+       
+      </Col>
+    </Row>
   );
 }

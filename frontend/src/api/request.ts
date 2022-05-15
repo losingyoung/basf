@@ -9,13 +9,24 @@ const http = axios.create({
 });
 
 axiosRetry(http, { retries: 3 });
+let hide: () => void;
+function showLoading() {
+  hide = message.loading('loading', 0);
+}
+function hideLoading() {
+  hide();
+}
 
 /**
  * http request 拦截器
  */
 http.interceptors.request.use(
-  (config) => config,
+  (config) => {
+    showLoading();
+    return config;
+  },
   (error) => {
+    hideLoading()
     message.error(`请求发送失败：${error}`);
     Promise.reject(error);
   },
@@ -26,6 +37,7 @@ http.interceptors.request.use(
  */
 http.interceptors.response.use(
   (response) => {
+    hideLoading()
     const { code, errorMessage } = response.data;
     if (code !== 0) {
       message.error(errorMessage);
@@ -34,6 +46,7 @@ http.interceptors.response.use(
     return response.data.data;
   },
   (error) => {
+    hideLoading()
     message.error(`服务器错误：${error}`);
     return Promise.reject(error);
   },

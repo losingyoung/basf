@@ -27,17 +27,15 @@ export default function H() {
   );
   return (
     <Header className={styles.header}>
-      <Space>
         <div>Last signin time: {lastSigninTime || 'unknown'}</div>
         <Dropdown overlay={menu}>
           <a onClick={(e) => e.preventDefault()}>
             <Space>
-              {userName}
+              <span className={styles.userName}>{userName}</span> 
               <DownOutlined />
             </Space>
           </a>
         </Dropdown>
-      </Space>
     </Header>
   );
 }

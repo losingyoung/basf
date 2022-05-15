@@ -1,6 +1,23 @@
 import { ColumnsType } from 'antd/es/table';
-import styles from './index.less'
+import styles from './index.less';
 
+const hightEl = (
+  originValue: string,
+  searchWords: string | undefined,
+  highlightClassName: string,
+) => {
+  if (!searchWords) return originValue;
+  const hightlightTest = new RegExp(`(.*?)(${searchWords})(.*)`, 'i');
+  const matchResult = originValue.match(hightlightTest);
+  if (!matchResult) return originValue;
+  return (
+    <div>
+      <span>{matchResult[1]}</span>
+      <span className={highlightClassName}>{matchResult[2]}</span>
+      <span>{matchResult[3]}</span>
+    </div>
+  );
+};
 const columns: ColumnsType<CountriesTableData> = [
   {
     title: 'flag',
@@ -22,7 +39,7 @@ const columns: ColumnsType<CountriesTableData> = [
     key: 'name',
     sorter: (a, b) => a.name.common.localeCompare(b.name.common),
     render: (value: CountriesName, record) => {
-      return value.common;
+      return hightEl(value.common, record.searchWords, styles.highlightText);
     },
   },
   {
@@ -39,8 +56,9 @@ const columns: ColumnsType<CountriesTableData> = [
       (a.capital || ['N/A'])
         .join(',')
         .localeCompare((b.capital || ['N/A']).join(',')),
-    render: (value: string[]) => {
-      return (value || ['N/A']).join(',');
+    render: (value: string[], record) => {
+      if (!value) return 'N/A'
+      return hightEl(value.join(','), record.searchWords, styles.highlightText)
     },
   },
 ];

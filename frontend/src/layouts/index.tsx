@@ -9,7 +9,6 @@ export default function layout(props: React.PropsWithChildren<{ location: { path
     <Layout>
       <Header></Header>
       <Content>{props.children}</Content>
-      <Footer>Footer</Footer>
     </Layout>
   )
 }
