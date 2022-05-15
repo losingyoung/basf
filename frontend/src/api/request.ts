@@ -2,6 +2,7 @@ import axios from 'axios';
 import { message } from 'antd';
 // 支持请求失败后自动重试
 import axiosRetry from 'axios-retry';
+import {history} from 'umi'
 
 const http = axios.create({
   timeout: 30000,
@@ -47,6 +48,10 @@ http.interceptors.response.use(
   },
   (error) => {
     hideLoading()
+    if (error.response.status === 403){
+      history.push('/signin')
+      return
+    }
     message.error(`服务器错误：${error}`);
     return Promise.reject(error);
   },
