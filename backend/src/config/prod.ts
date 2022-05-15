@@ -1,6 +1,4 @@
-import prod from './prod'
-
-const local = {
+const config = {
   db: {
     host: 'localhost',
     port: 3306,
@@ -10,6 +8,5 @@ const local = {
   },
   signinSessionKey: 'localtestkey'
 }
-const config = process.env.NODE_ENV === 'production' ? prod : local
 
 export default config

@@ -1,7 +1,7 @@
 import { initDB } from './model/index';
 import app from './app';
 
-const port = 3000;
+const port = parseInt(process.env.PORT, 10) || 3000;
 
 initDB()
   .then(() => {

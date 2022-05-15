@@ -108,3 +108,5 @@ dist
 backend/static
 
 deploy.zip
+
+backend/src/config/.prod.ts

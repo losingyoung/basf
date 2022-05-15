@@ -12,8 +12,6 @@ import { authMiddleware } from "./middlewares/auth";
 
 const app = new Koa();
 
-// app.context.logStart = logStart
-// app.context.logEnd = logEnd
 const middlewares = compose([unionResMiddleware(), errorMiddleware(), authMiddleware()])
 app.use(middlewares)
 app.use(serve(path.resolve(__dirname, '../static')));
