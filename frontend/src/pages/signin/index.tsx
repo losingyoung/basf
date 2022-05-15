@@ -45,12 +45,12 @@ function SignInput(props: SignInputProps) {
   const [userName, userNameOnchange] = useInput('');
   const [password, passwordOnchange] = useInput('');
   const onSubmit = () => {
-    if (!userName) {
-      message.error('username cannot be empty');
+    if (!userName || userName.length < 5) {
+      message.error('username\'s length should be above 5');
       return;
     }
-    if (!password) {
-      message.error('password cannot be empty');
+    if (!password|| password.length < 8) {
+      message.error('password\'s length should be above 8');
       return;
     }
     props.onSubmit({
