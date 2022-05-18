@@ -30,7 +30,7 @@ export default function IndexPage() {
       title: 'favorites',
       dataIndex: 'favorite',
       key: 'favorite',
-      render: (value: boolean | undefined, record) => {
+      render: (value: boolean | undefined, record: CountriesTableData) => {
         const Icon = value ? HeartFilled : HeartOutlined
         return (
           <div>
@@ -239,7 +239,7 @@ export default function IndexPage() {
         <div className={styles.chartPlaceholder}></div>
         <BarChart height={400} options={chartOptions}></BarChart>
         <div className={styles.chartCloseWrapper}>
-        <CloseCircleOutlined style={{fontSize: '20px'}}className={styles.chartCloseBtn} onClick={closeChart} />
+        <CloseCircleOutlined style={{fontSize: '25px'}}className={styles.chartCloseBtn} onClick={closeChart} />
         </div>
        
       </Col>

@@ -13,7 +13,7 @@ export default function BarChart(props: BarChartProps) {
     window.onresize = function(){
       chartInstance.current?.resize()
     }
-    if (chartEl.current) chartInstance.current = echarts.init(chartEl.current);
+    if (chartEl.current) chartInstance.current = window.echarts.init(chartEl.current);
   }, []);
 
   // 绘制图表

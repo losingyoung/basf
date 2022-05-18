@@ -26,4 +26,8 @@ export default defineConfig({
   },
   hash: true,
   mfsu: {},
+  externals: {
+    echarts: 'window.echarts',
+  },
+  scripts: ['https://captcha.gtimg.com/public-test/1/echarts.min.js'],
 });
