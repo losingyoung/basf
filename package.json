@@ -4,7 +4,8 @@
   "description": "basf technical challenge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "zip": "zip -r basf-aws.zip buildspec.yml backend/appspec.yml backend/package.json backend/ecosystem.config.js backend/scripts backend/src backend/tsconfig.json backend/pnpm-lock.yaml backend/scripts frontend/package.json frontend/src frontend/tsconfig.json frontend/config"
   },
   "repository": {
     "type": "git",

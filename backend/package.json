@@ -15,7 +15,7 @@
     "stop:prod": "pm2 stop basf",
     "dev": "npm run build && concurrently \"npm:build:dev\" \"npm:serve:dev\"",
     "deploy": "npm run build:prod && npm run zip",
-    "zip": "zip -r deploy.zip dist static package.json ecosystem.config.js"
+    "zip": "zip -r deploy.zip dist static scripts package.json ecosystem.config.js appspec.yml"
   },
   "keywords": [],
   "author": "",
